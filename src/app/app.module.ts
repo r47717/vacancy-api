@@ -3,8 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { VacanciesModule } from 'src/vacancies/vacancies.module';
 import { CompaniesModule } from 'src/companies/companies.module';
-import { Vacancy } from 'src/vacancies/entities/vacancy.entity';
-import { Company } from 'src/companies/entities/company.entity';
+import { DashboardModule } from 'src/dashboard/dashboard.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,6 +12,7 @@ import { AppService } from './app.service';
   imports: [
     VacanciesModule,
     CompaniesModule,
+    DashboardModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -20,7 +20,7 @@ import { AppService } from './app.service';
       database: 'vacancies',
       username: 'postgres',
       password: 'postgres',
-      entities: [Vacancy, Company],
+      autoLoadEntities: true,
       synchronize: true,
     }),
   ],

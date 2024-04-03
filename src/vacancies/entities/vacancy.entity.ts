@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Company } from 'src/companies/entities/company.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+
+enum TestType {
+  NONE = 'NONE',
+  QUESTIONNAIRE = 'QUESTIONNAIRE',
+  TASK = 'TASK',
+}
 
 @Entity()
 export class Vacancy {
@@ -20,6 +27,12 @@ export class Vacancy {
   @Column()
   comment: string;
 
+  @Column()
+  test: TestType;
+
   @Column({ default: true })
   isActive: boolean;
+
+  @ManyToOne(() => Company, (company) => company.vacancies)
+  company: Company;
 }
