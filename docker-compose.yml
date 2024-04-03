@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  # nest:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: .
+  #   volumes:
+  #     - .:/usr/src/app
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_DB: vacancies
+  #   # Run a command against the development stage of the image
+  #   command: npm run start:dev
+  #   ports:
+  #     - 3000:3000
+  postgres:
+    image: postgres:13
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: vacancies
+#     networks:
+#       - networkName
+# networks:
+#   networkName:
