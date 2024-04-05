@@ -1,0 +1,28 @@
+<h1>Bashboard</h1>
+
+<h2>Companies</h2>
+
+<% if (companies.length > 0) { %>
+  <ul>
+    <% companies.forEach(function(c){ %>
+      <li><%= c  %></li>
+    <% }); %>
+  </ul>
+<% } else { %>
+  <emp>No companies</emp>
+<% } %>
+
+<h2>Vacancies</h2>
+
+<% if (vacancies.length > 0) { %>
+  <ul>
+    <% vacancies.forEach(function(c){ %>
+      <li><%= c  %></li>
+    <% }); %>
+  </ul>
+<% } else { %>
+  <emp>No vacancies</emp>
+<% } %>
+
+<h2>Links</h2>
+<a href="/resume/list">List of resumes from S3</a>

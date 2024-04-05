@@ -7,12 +7,14 @@ import { DashboardModule } from 'src/dashboard/dashboard.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ResumeModule } from 'src/resumes/resumes.module';
 
 @Module({
   imports: [
     VacanciesModule,
     CompaniesModule,
     DashboardModule,
+    ResumeModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
