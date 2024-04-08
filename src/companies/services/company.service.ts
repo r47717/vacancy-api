@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Company } from '../entities/company.entity';
+import { CreateCompanyDTO } from '../dto/company.dto';
 
 @Injectable()
 export class CompanyService {
@@ -11,19 +12,42 @@ export class CompanyService {
     private companiesRepository: Repository<Company>,
   ) {}
 
-  findAll(): Promise<Company[]> {
+  findAll() {
     return this.companiesRepository.find();
   }
 
-  count(): Promise<number> {
+  count() {
     return this.companiesRepository.count();
   }
 
-  findOne(id: number): Promise<Company | null> {
+  findOne(id: number) {
     return this.companiesRepository.findOneBy({ id });
   }
 
-  async remove(id: number): Promise<void> {
-    await this.companiesRepository.delete(id);
+  async create(data: CreateCompanyDTO) {
+    const { title, description, url, rating, isStartup, comment } = data;
+
+    const newCompanyData = await this.companiesRepository
+      .createQueryBuilder()
+      .insert()
+      .values({
+        title,
+        description,
+        url,
+        rating,
+        isStartup,
+        comment,
+      })
+      .returning('id')
+      .execute();
+
+    const { raw } = newCompanyData;
+    const id = raw[0]?.id;
+
+    return id;
+  }
+
+  async delete(id: number) {
+    return this.companiesRepository.delete(id);
   }
 }

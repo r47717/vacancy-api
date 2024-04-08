@@ -1,0 +1,35 @@
+<%- include('header'); -%>
+
+<h1>View Company</h1>
+
+<div>
+  ID: <strong><%= id %></strong>
+</div>
+
+<div>
+  Title: <strong><%= title %></strong>
+</div>
+
+<div>
+  Description <strong><%= description %></strong>
+</div>
+
+<div>
+  URL <strong><%= url %></strong>
+</div>
+
+<div>
+  Rating <strong><%= rating %></strong>
+</div>
+
+<div>
+  Is startup <strong><%= isStartup ? 'yes' : 'no' %></strong>
+</div>
+
+<div>
+  Comment <strong><%= comment %></strong>
+</div>
+
+<form action="/company/delete/<%= id %>" method="post">
+  <button>Delete</button>
+</form>

@@ -1,16 +1,22 @@
-<h1>Bashboard</h1>
+<h1>Dashboard</h1>
 
 <h2>Companies</h2>
 
 <% if (companies.length > 0) { %>
   <ul>
     <% companies.forEach(function(c){ %>
-      <li><%= c  %></li>
+      <li>
+        <a href="/company/show/<%= c.id %>">
+          <%= c.title %>
+        </a> 
+      </li>
     <% }); %>
   </ul>
 <% } else { %>
   <emp>No companies</emp>
 <% } %>
+
+<a href="/company/new">Create new company</a>
 
 <h2>Vacancies</h2>
 

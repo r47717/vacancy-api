@@ -10,13 +10,13 @@ export class DashboardController {
   @Render('dashboard')
   async info() {
     const companies = await this.dashboardService.companiesInfo();
-    const companyNames = companies.map(({ title }) => title);
+    const companyData = companies.map(({ id, title }) => ({ id, title }));
 
     const vacancies = await this.dashboardService.vacanciesInfo();
     const vacancyNames = vacancies.map(({ title }) => title);
 
     return {
-      companies: companyNames,
+      companies: companyData,
       vacancies: vacancyNames,
     };
   }
