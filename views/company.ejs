@@ -2,34 +2,51 @@
 
 <h1>View Company</h1>
 
+<h2>Company Data</h2>
+
 <div>
-  ID: <strong><%= id %></strong>
+  ID: <strong><%= company.id %></strong>
 </div>
 
 <div>
-  Title: <strong><%= title %></strong>
+  Title: <strong><%= company.title %></strong>
 </div>
 
 <div>
-  Description <strong><%= description %></strong>
+  Description <strong><%= company.description %></strong>
 </div>
 
 <div>
-  URL <strong><%= url %></strong>
+  URL <a href="<%= company.url %>" target="_blank"><%= company.url %></a>
 </div>
 
 <div>
-  Rating <strong><%= rating %></strong>
+  Rating <strong><%= company.rating %></strong>
 </div>
 
 <div>
-  Is startup <strong><%= isStartup ? 'yes' : 'no' %></strong>
+  Is startup <strong><%= company.isStartup ? 'yes' : 'no' %></strong>
 </div>
 
 <div>
-  Comment <strong><%= comment %></strong>
+  Comment <strong><%= company.comment %></strong>
 </div>
 
-<form action="/company/delete/<%= id %>" method="post">
+<form action="/company/delete/<%= company.id %>" method="post">
   <button>Delete</button>
 </form>
+
+<h2>Company Vacancies</h2>
+
+<% if (vacancies.length > 0) { %>
+  <ul>
+    <% vacancies.forEach(function(v){ %>
+      <li>
+        <a href="/vacancy/show/<%= v.id %>">
+          <%= v.title %>
+        </a>
+    <% }); %>
+  </ul>
+<% } else { %>
+  <emp>No vacancies</emp>
+<% } %>

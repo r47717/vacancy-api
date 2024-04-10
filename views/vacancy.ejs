@@ -1,0 +1,51 @@
+<%- include('header'); -%>
+
+<h1>View Vacancy</h1>
+
+<div>
+  ID: <strong><%= id %></strong>
+</div>
+
+<div>
+  Title: <strong><%= title %></strong>
+</div>
+
+<div>
+  Description: <strong><%= description %></strong>
+</div>
+
+<div>
+  URL: <a href="<%= url %>" target="_blank"><%= url %></a>
+</div>
+
+<div>
+  Status: <strong><%= status %></strong>
+</div>
+
+<div>
+  Comment: <strong><%= comment %></strong>
+</div>
+
+<div>
+  Is active: <strong><%= isActive ? 'yes' : 'no' %></strong>
+</div>
+
+<div>
+  Is favorite: <strong><%= isFavorite ? 'yes' : 'no' %></strong>
+</div>
+
+<div>
+  Work Location: <strong><%= workLocation %></strong>
+</div>
+
+<div>
+  Test type: <strong><%= testType %></strong>
+</div>
+
+<div>
+  Company: <a href="/company/show/<%= company.id %>"><%= company.title %></a>
+</div>
+
+<form action="/vacancy/delete/<%= id %>" method="post">
+  <button>Delete</button>
+</form>

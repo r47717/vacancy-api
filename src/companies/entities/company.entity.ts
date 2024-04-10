@@ -24,6 +24,11 @@ export class Company {
   @Column()
   comment: string;
 
-  @OneToMany(() => Vacancy, (vacancy) => vacancy.company)
+  @Column({ default: '' })
+  hhId: string;
+
+  @OneToMany(() => Vacancy, (vacancy) => vacancy.company, {
+    cascade: true,
+  })
   vacancies: Vacancy[];
 }

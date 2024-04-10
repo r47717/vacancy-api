@@ -8,13 +8,13 @@ import {
 } from 'typeorm';
 import { VacancyList } from './vacancyList.entity';
 
-enum TestType {
+export enum TestType {
   NONE = 'NONE',
   QUESTIONNAIRE = 'QUESTIONNAIRE',
   TASK = 'TASK',
 }
 
-enum WorkLocation {
+export enum WorkLocation {
   OFFICE = 'OFFICE',
   REMOTE = 'REMOTE',
   HYBRID = 'HYBRID',
@@ -52,7 +52,15 @@ export class Vacancy {
   @Column({ default: false })
   isFavorite: boolean;
 
-  @ManyToOne(() => Company, (company) => company.vacancies)
+  @Column({ default: '' })
+  hhId: string;
+
+  @Column({ default: '' })
+  hhCompanyId: string;
+
+  @ManyToOne(() => Company, (company) => company.vacancies, {
+    onDelete: 'CASCADE',
+  })
   company: Company;
 
   @ManyToMany(() => VacancyList, (list) => list.vacancies)

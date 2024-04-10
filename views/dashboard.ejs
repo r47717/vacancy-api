@@ -18,17 +18,38 @@
 
 <a href="/company/new">Create new company</a>
 
+<form action="/company/load-hh" method="post">
+  <button type="submit">Load companies from HH</button>
+</form>
+
+<form action="/company/delete-all" method="post">
+  <button type="submit">Delete all companies</button>
+</form>
+
 <h2>Vacancies</h2>
 
 <% if (vacancies.length > 0) { %>
   <ul>
-    <% vacancies.forEach(function(c){ %>
-      <li><%= c  %></li>
+    <% vacancies.forEach(function(v){ %>
+      <li>
+        <a href="/vacancy/show/<%= v.id %>">
+          <%= v.title %>
+        </a>
     <% }); %>
   </ul>
 <% } else { %>
   <emp>No vacancies</emp>
 <% } %>
+
+<a href="/vacancy/new">Create new vacancy</a>
+
+<form action="/vacancy/load-hh" method="post">
+  <button type="submit">Load vacancies from HH</button>
+</form>
+
+<form action="/vacancy/delete-all" method="post">
+  <button type="submit">Delete all vacancies</button>
+</form>
 
 <h2>Links</h2>
 <a href="/resume/list">List of resumes from S3</a>
