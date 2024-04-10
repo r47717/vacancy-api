@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Redirect,
   Render,
@@ -12,6 +13,7 @@ import { VacancyService } from '../services/vacancy.service';
 import { Vacancy } from '../entities/vacancy.entity';
 import { CompanyService } from 'src/companies/services/company.service';
 import { CreateVacancyDTO } from '../dto/vacancy.dto';
+import { CreateVacancyValidationPipe } from '../pipes/validation.pipe';
 
 @Controller('vacancy')
 export class VacancyController {
@@ -32,7 +34,7 @@ export class VacancyController {
 
   @Get('show/:id')
   @Render('vacancy')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     const vacancy = await this.vacancyService.findOne(id);
 
     return vacancy;
@@ -51,7 +53,9 @@ export class VacancyController {
 
   @Post()
   @Redirect()
-  async submitCreateVacancy(@Body() createVacancyDTO: CreateVacancyDTO) {
+  async submitCreateVacancy(
+    @Body(CreateVacancyValidationPipe) createVacancyDTO: CreateVacancyDTO,
+  ) {
     const vacancyId = await this.vacancyService.create(createVacancyDTO);
 
     return {
@@ -61,7 +65,7 @@ export class VacancyController {
 
   @Post('delete/:id')
   @Redirect()
-  async deleteVacancy(@Param('id') id: number) {
+  async deleteVacancy(@Param('id', ParseIntPipe) id: number) {
     await this.vacancyService.delete(id);
 
     return {

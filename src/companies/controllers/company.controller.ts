@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Redirect,
   Render,
@@ -12,6 +13,7 @@ import { CompanyService } from '../services/company.service';
 import { VacancyService } from 'src/vacancies/services/vacancy.service';
 
 import { CreateCompanyDTO } from '../dto/company.dto';
+import { CreateCompanyValidationPipe } from '../pipes/validation.pipe';
 
 @Controller('company')
 export class CompanyController {
@@ -32,7 +34,7 @@ export class CompanyController {
 
   @Get('show/:id')
   @Render('company')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     const company = await this.companyService.findOne(id);
     const vacancies = await this.vacancyService.getVacanciesByCompany(company);
 
@@ -49,7 +51,9 @@ export class CompanyController {
 
   @Post()
   @Redirect()
-  async createCompany(@Body() createCompanyDTO: CreateCompanyDTO) {
+  async createCompany(
+    @Body(CreateCompanyValidationPipe) createCompanyDTO: CreateCompanyDTO,
+  ) {
     const companyId = await this.companyService.create(createCompanyDTO);
 
     return {
@@ -59,7 +63,7 @@ export class CompanyController {
 
   @Post('delete/:id')
   @Redirect()
-  async deleteCompany(@Param('id') id: number) {
+  async deleteCompany(@Param('id', ParseIntPipe) id: number) {
     await this.companyService.delete(id);
 
     return {
