@@ -51,6 +51,40 @@
   <button type="submit">Delete all vacancies</button>
 </form>
 
+<h2>Vacancies by keyword</h2>
+
+<form action="/submit-keyword" method="post">
+  <input type="text" value="<%= keyword %>" name="keyword">
+  <button type="submit">Submit</button>
+</form>
+
+<table>
+  <thead>
+    <tr>Vacancy id</tr>
+    <tr>Vacancy title</tr>
+    <tr>Company name</tr>
+  </thead>
+  <tbody>
+    <% byKeyword.forEach(function(item){ %>
+      <tr>
+        <td><%= item.vid %></td>
+        <td>
+          <a href="/vacancy/show/<%= item.vid %>">
+            <%= item.vtitle %>
+          </a>
+        </td>
+        <td>
+          <a href="/vacancy/show/<%= item.cid %>">
+            <%= item.ctitle %>
+          </a>
+        </td>
+      </tr>
+      <tr>
+    <% }); %>
+  </tbody>
+</table>
+
+
 <h2>Summary (HH only)</h2>
 
 <table>

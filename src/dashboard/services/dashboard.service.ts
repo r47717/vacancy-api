@@ -22,12 +22,23 @@ export class DashboardService {
 
   async vacancySummary() {
     return await this.dataSource.query(`
-      select c.id, c.title, count(*) from public.company c
+      select c.id, c.title, count(*) 
+      from public.company c
       left outer join public.vacancy v on c.id = v."companyId"
       where (v."hhId" is not null) and (c."hhId" is not null)
       group by c.id
       having count(*) > 0
       order by count(*) desc
+    `);
+  }
+
+  async vacanciesByKeyword(keyword: string) {
+    return await this.dataSource.query(`
+      select v.id as vid, v.title as vtitle, c.id as cid, c.title as ctitle
+      from public.vacancy v
+      left join public.company c on v."companyId" = c.id
+      where v.title like '%${keyword}%'
+      order by v.title
     `);
   }
 }
