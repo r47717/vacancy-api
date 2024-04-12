@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { AxiosError } from 'axios';
-import { catchError, firstValueFrom } from 'rxjs';
+import { catchError, firstValueFrom, map } from 'rxjs';
 
 import { Company } from 'src/companies/entities/company.entity';
 import { HHVacancyDTO } from '../dto/hhVacancy.dto';
@@ -20,16 +20,17 @@ export class HHService {
   constructor(private readonly httpService: HttpService) {}
 
   async getPublicData() {
-    const {
-      data: { items: hhVacancies },
-    } = await firstValueFrom(
+    const hhVacancies = await firstValueFrom(
       this.httpService
         .get<HHResponse>('https://api.hh.ru/vacancies?text=javascript')
         .pipe(
           catchError((error: AxiosError) => {
             console.error(error);
-            throw 'An error happened';
+            throw new InternalServerErrorException(
+              'Failed to download HH data',
+            );
           }),
+          map(({ data: { items } }) => items),
         ),
     );
 

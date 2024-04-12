@@ -51,5 +51,31 @@
   <button type="submit">Delete all vacancies</button>
 </form>
 
+<h2>Summary (HH only)</h2>
+
+<table>
+  <thead>
+    <tr>company id</tr>
+    <tr>company title</tr>
+    <tr>No of vacancies</tr>
+  </thead>
+  <tbody>
+    <% summary.forEach(function(item){ %>
+      <tr>
+        <td><%= item.id %></td>
+        <td>
+          <a href="/company/show/<%= item.id %>">
+            <%= item.title %>
+          </a>
+        </td>
+        <td>
+          <%= item.count %>
+        </td>
+      </tr>
+      <tr>
+    <% }); %>
+  </tbody>
+</table>
+
 <h2>Links</h2>
 <a href="/resume/list">List of resumes from S3</a>

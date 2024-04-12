@@ -15,9 +15,13 @@ export class DashboardController {
     const vacancies = await this.dashboardService.vacanciesInfo();
     const vacancyNames = vacancies.map(({ id, title }) => ({ id, title }));
 
+    const summary = await this.dashboardService.vacancySummary();
+    console.log(summary);
+
     return {
       companies: companyData,
       vacancies: vacancyNames,
+      summary,
     };
   }
 }
