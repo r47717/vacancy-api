@@ -1,12 +1,12 @@
-import { Injectable, OnApplicationShutdown } from '@nestjs/common';
+import { BeforeApplicationShutdown, Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService implements OnApplicationShutdown {
+export class AppService implements BeforeApplicationShutdown {
   info(): string {
     return 'Vacancy API';
   }
 
-  onApplicationShutdown(signal: string) {
+  beforeApplicationShutdown(signal: string) {
     console.log(signal);
   }
 }
