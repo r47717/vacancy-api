@@ -33,12 +33,15 @@ export class DashboardService {
   }
 
   async vacanciesByKeyword(keyword: string) {
-    return await this.dataSource.query(`
+    return await this.dataSource.query(
+      `
       select v.id as vid, v.title as vtitle, c.id as cid, c.title as ctitle
       from public.vacancy v
       left join public.company c on v."companyId" = c.id
-      where v.title like '%${keyword}%'
+      where v.title like '%:keyword%'
       order by v.title
-    `);
+    `,
+      [{ keyword }],
+    );
   }
 }
