@@ -20,7 +20,7 @@ async function bootstrap() {
     }),
   );
 
-  app.enableShutdownHooks();
+  // app.enableShutdownHooks();
 
   await app.listen(3000);
 }

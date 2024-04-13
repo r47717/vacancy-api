@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   ManyToMany,
+  BeforeUpdate,
 } from 'typeorm';
 import { VacancyList } from './vacancyList.entity';
 
@@ -57,6 +58,17 @@ export class Vacancy {
 
   @Column({ default: '' })
   hhCompanyId: string;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  created: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updated: Date;
+
+  @BeforeUpdate()
+  updateTimestamp() {
+    this.updated = new Date();
+  }
 
   @ManyToOne(() => Company, (company) => company.vacancies, {
     onDelete: 'CASCADE',
