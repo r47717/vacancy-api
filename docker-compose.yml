@@ -22,7 +22,26 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: vacancies
+    # networks:
+    #   - vacancies
+  keycloak:
+    depends_on:
+      - postgres
+    container_name: keycloak
+    environment:
+      PORT_KEYCLOAK: 8080
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    image: bitnami/keycloak:latest
+    ports:
+      - '8080:8080'
+    restart: unless-stopped
 #     networks:
-#       - networkName
+#       - vacancies
 # networks:
-#   networkName:
+#   vacancies:
