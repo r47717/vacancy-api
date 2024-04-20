@@ -22,8 +22,14 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: vacancies
+    volumes:
+      - /var/lib/postgresql:/var/lib/postgresql
     # networks:
     #   - vacancies
+  postfix:
+    image: infrastructr/postfix
+    ports:
+      - 25:25
   keycloak:
     depends_on:
       - postgres

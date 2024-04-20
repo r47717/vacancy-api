@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 import { VacanciesModule } from 'src/vacancies/vacancies.module';
 import { CompaniesModule } from 'src/companies/companies.module';
@@ -26,6 +27,18 @@ import { AppService } from './app.service';
       password: 'postgres',
       autoLoadEntities: true,
       synchronize: true,
+    }),
+    MailerModule.forRoot({
+      // transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      // defaults: {
+      //   from: '"nest-modules" <modules@nestjs.com>',
+      // },
+      // template: {
+      //   dir: __dirname + '/templates',
+      //   options: {
+      //     strict: true,
+      //   },
+      // },
     }),
   ],
   controllers: [AppController],
